@@ -1,0 +1,9 @@
+{
+  "phase": "beta",
+  "go_live_date": null,
+  "beta_cutoff": null,
+  "protection": "always_on",
+  "beta_premium_delivery": "private_repos_only",
+  "beta_team": "beta-testers",
+  "notes": "Only 'phase' changes at go-live (plus go_live_date and beta_cutoff). umbrella-protection applies in every phase. During beta, premium content reaches testers ONLY via the private repos (team beta-testers, access expires at beta_cutoff, every pulled file watermarked per member). Nothing premium is ever placed in this public repo."
+}

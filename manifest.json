@@ -1,0 +1,9 @@
+{
+  "channel": "free",
+  "version": "0.1.0-beta",
+  "phase": "beta",
+  "min_version": "0.1.0",
+  "visibility": "public",
+  "updated_at": "2026-10-19T03:40:00-04:00",
+  "test_org": true
+}
