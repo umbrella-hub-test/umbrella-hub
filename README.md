@@ -19,14 +19,15 @@ The public, free update channel for Umbrella bots.
 |---|---|---|
 | free | `umbrella-hub` (this repo, public) | everyone |
 | pro | `uh-pro` (private) | teams `pro`, `elite`, `grandfathered`, `grandfathered-dev`, `beta-testers` |
-| elite | `uh-elite` (private) | teams `elite`, `grandfathered`, `grandfathered-dev`, `beta-testers` |
+| elite | `uh-elite` (private) | teams `elite`, `beta-testers` (+ grandfathered only via a **paid discounted** Elite/Team grant) |
 | dev | `uh-dev` (private) | team `grandfathered-dev` |
 | ledger | `uh-ledger` (private) | org owners only |
 
 **No premium content lives in this public repo, in beta or after launch.** Premium files are only in the private repos and are watermarked per member when pulled.
 
 ## Prices (USDC per 30 days, no auto-charge)
-Free $0 · Pro $35 · Elite $89.99 · Team $199 (later phase). Family and original devs: grandfathered, free.
+Free $0 · Pro $35 · Elite $89.99 · Team $199 (later phase).
+**Grandfathered** (family / original devs): Pro free only. Elite $53.99 / Team $119.40 (HQ 40% off). `grandfathered` → `uh-pro` only; `grandfathered-dev` keeps `uh-dev` + `uh-pro` (not free Elite). Owner and internal bots unchanged.
 Umbrella will **never** ask for your seed phrase or private key.
 
 ## Honest limits

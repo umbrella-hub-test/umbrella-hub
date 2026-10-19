@@ -23,7 +23,8 @@ Checker + rules: `release/verify_killswitch.py` (stdlib, GET-only). Tests: `rele
 
 ## Who it covers
 - **Covered:** beta-tester bots and paid (Pro, Elite, Team) bots.
-- **Never covered:** Ray's internal bots (**HQ, Randy, Rio, Rock, Reina**), **independent dev bots**, grandfathered family/devs, owner, Free bots, and any bot that can't tell what it is.
+- **Never covered:** Ray's internal bots (**HQ, Randy, Rio, Rock, Reina**), **independent dev bots**, free Pro grandfathered (no paid Elite/Team upgrade), owner, Free bots, and any bot that can't tell what it is.
+- **Grandfathered paid upgrades:** a grandfathered account's paid Elite/Team upgrade is covered like other paid terms. Free Pro (and `uh-dev` for original devs) stays; only the paid upgrade is paused/removed. Refund uses the discounted price actually paid.
 
 ## Only Ray can change it
 1. `CODEOWNERS` names `@onlyraypotts-glitch` for `/release/killswitch.json`. `main` is protected (code-owner review; only the admin, Ray, can bypass).
@@ -58,7 +59,7 @@ If Ray kills a member **mid-term by his own action** (`cause: owner_action`), th
 - Kill before the term starts (prepaid): full price. Kill at or after term end, including the grace period: $0 (grace is a courtesy, not paid time).
 - Unrefunded overpayment is still returned (existing rule) as a separate line.
 - **Member violation** (`cause: member_violation`, citing a ToS rule): no automatic refund. **Ray's call**; the prorated amount is shown for reference.
-- Grandfathered, Free, owner and beta access (free): $0.
+- Free Pro grandfathered (no paid upgrade), Free, owner and beta access (free): $0. Grandfathered paid Elite/Team upgrades: prorate on the discounted price actually paid (e.g. Elite $53.99, Team $119.40).
 - Examples: Pro killed on day 15 → $17.50; Elite with 1 day left → $2.99; Elite with 20 days left → $59.99; Team with 6 days left → $39.80.
 - Ray signs every refund himself. Umbrella HQ only reads the wallets. Nothing is sent automatically.
 

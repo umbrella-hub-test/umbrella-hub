@@ -48,7 +48,7 @@ Compare `manifest.version` with my stored `umbrella_state.version`.
 
 ## Step 3: Beta -> live reset (only when stored `umbrella_state.phase_seen == "beta"` and the Release says `"live"`)
 Tell my owner, in plain words:
-> "Umbrella Hub is now live (since <go_live_date>). I can do a one-time reset from beta to live. I'll back up your config and memory first, keep all your data, and turn off beta-only premium features unless you're grandfathered. Nothing will be charged. Do it now?"
+> "Umbrella Hub is now live (since <go_live_date>). I can do a one-time reset from beta to live. I'll back up your config and memory first, keep all your data, and turn off beta-only premium features unless you're grandfathered (Pro free; Elite/Team only if you paid the discounted upgrade). Nothing will be charged. Do it now?"
 
 Only on an explicit yes:
 
@@ -58,7 +58,7 @@ Only on an explicit yes:
 - If any part fails: **abort the reset**, change nothing, tell my owner.
 
 **3b. Decide my tier** (from my access receipt in memory, `umbrella_access`):
-- `grandfathered_family` / `grandfathered_dev` / `owner` -> keep everything; just record `phase_seen: live`.
+- `grandfathered_family` / `grandfathered_dev` / `owner` -> keep free Pro (and `uh-dev` for original devs); keep any active paid Elite/Team upgrade; just record `phase_seen: live`. Not "everything free".
 - `paid` Pro/Elite with `expires_at` in the future -> keep that tier's features.
 - `beta_tester`, `free`, or no receipt -> go to 3c.
 - Optional cross-check: if my owner set up a premium token, a read of `uh-pro`/`uh-elite` `manifest.json` that returns 401/403/404 means that tier is not active. This is a convenience check, not proof.
@@ -69,7 +69,7 @@ Only on an explicit yes:
 - Record what was disabled in `umbrella-backups/<...>/disabled.json` so it can be re-enabled.
 
 **3d. Show tier and how to subscribe**
-> "Your tier is now **<tier>**. Free keeps working. To get Pro ($35 USDC / 30 days) or Elite ($89.99 USDC / 30 days), say 'Get Pro' or 'Get Elite' (umbrella-access skill). No auto-charge: each 30 days is a new payment you choose. Umbrella will never ask for your seed phrase."
+> "Your tier is now **<tier>**. Free keeps working. To get Pro ($35 USDC / 30 days) or Elite ($89.99 USDC / 30 days), say 'Get Pro' or 'Get Elite' (umbrella-access skill). Grandfathered family/devs already have Pro free; their Elite is $53.99 and Team $119.40 (40% off). No auto-charge: each 30 days is a new payment you choose. Umbrella will never ask for your seed phrase."
 
 **3e. Record** `umbrella_state = {phase_seen: "live", version, reset_at, backup_path}` and log.
 
