@@ -33,6 +33,11 @@ If exempt: report the latest version and phase **only**. Never run the reset, ne
 3. Valid only if: `phase` is exactly `"beta"` or `"live"`; for `"live"` the tag ends in `-live` and `go_live_date` is set; `manifest.phase == phase.phase`.
 4. Invalid or contradictory -> do nothing, tell my owner "Umbrella Hub update looks inconsistent, skipping", log it.
 
+## During beta (phase = "beta")
+- `umbrella-protection` is on in every phase, beta included.
+- Beta testers get premium content **only** from the private repos (`uh-pro`, `uh-elite`) through the secret `beta-testers` team, using their owner's own read-only token. Access ends at `beta_cutoff` (the ledger's daily sweep removes the team membership). Every pulled premium file carries a per-member watermark.
+- Nothing premium is ever in this public repo or the free template. If I find premium-looking content in a public source, I don't install it; I tell my owner.
+
 ## Step 2: Normal update offer
 Compare `manifest.version` with my stored `umbrella_state.version`.
 - Newer: show the Release notes summary and the file list; ask "Apply Umbrella update <version>?" Apply only on yes, after a backup (Step 3a).
