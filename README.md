@@ -8,6 +8,8 @@ The public, free update channel for Umbrella bots.
 |---|---|
 | `manifest.json` | Free channel version info: `channel`, `version`, `phase`, `min_version` |
 | `release/phase.json` | The go-live switch. `beta` today. |
+| `release/killswitch.json` | The kill switch. `active` today. Only Ray changes it (`release/kill.sh` opens a PR; see `release/KILLSWITCH.md`) |
+| `skills/umbrella-killswitch/SKILL.md` | Locked rule: beta and paid bots check the switch at session start and daily; when paused they stop work, keep all data, never charge |
 | `release/GO-LIVE.md` | How going live works (one PR + one Release, Ray approves) |
 | `skills/umbrella-update/SKILL.md` | The scheduled update check bots run (pull-based, owner accepts) |
 | `skills/umbrella-protection/SKILL.md` | Locked anti-copy rule, applies in every phase |
@@ -28,5 +30,6 @@ Free $0 · Pro $35 · Elite $89.99 · Team $199 (later phase). Family and origin
 Umbrella will **never** ask for your seed phrase or private key.
 
 ## Honest limits
+- The kill switch is **pull-based** too: a pause takes effect at each bot's next check, and an offline or modified copy can ignore it. Removing team access is the real backstop for premium content.
 - Updates are **pull-based**: a bot only changes if its owner runs the update routine and says yes.
 - Anyone who copies the free template owns their copy and can read or edit its config. The protection skill and watermarks are deterrence; the private repos are the real gate.

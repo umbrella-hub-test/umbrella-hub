@@ -1,0 +1,18 @@
+test_committed_file_is_valid_and_active (release.tests.test_killswitch.T.test_committed_file_is_valid_and_active) ... ok
+test_fetch_failure_keeps_last_state (release.tests.test_killswitch.T.test_fetch_failure_keeps_last_state) ... ok
+test_free_and_grandfathered_never_killed (release.tests.test_killswitch.T.test_free_and_grandfathered_never_killed) ... ok
+test_internal_leaders_and_dev_bots_exempt (release.tests.test_killswitch.T.test_internal_leaders_and_dev_bots_exempt) ... ok
+test_invalid_doc_keeps_last_state (release.tests.test_killswitch.T.test_invalid_doc_keeps_last_state) ... ok
+test_kill_all_kills_beta_and_paid (release.tests.test_killswitch.T.test_kill_all_kills_beta_and_paid) ... ok
+test_member_scope (release.tests.test_killswitch.T.test_member_scope) ... ok
+test_notice_text (release.tests.test_killswitch.T.test_notice_text) ... ok
+test_revive_and_rollback_protection (release.tests.test_killswitch.T.test_revive_and_rollback_protection) ... ok
+test_spoofed_repo_ignored (release.tests.test_killswitch.T.test_spoofed_repo_ignored) ... ok
+test_tier_scope (release.tests.test_killswitch.T.test_tier_scope) ... ok
+test_unverified_or_foreign_commit_ignored (release.tests.test_killswitch.T.test_unverified_or_foreign_commit_ignored) ... ok
+test_validation_rules (release.tests.test_killswitch.T.test_validation_rules) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.001s
+
+OK

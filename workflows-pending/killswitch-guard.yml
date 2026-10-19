@@ -1,0 +1,25 @@
+# PENDING: move to .github/workflows/killswitch-guard.yml (needs a token with `workflow` scope).
+# Then make "killswitch-guard" a required status check on main.
+name: killswitch-guard
+on:
+  pull_request:
+    paths: ["release/killswitch.json"]
+permissions:
+  contents: read
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Only Ray may propose kill switch changes
+        run: |
+          test "${{ github.event.pull_request.user.login }}" = "onlyraypotts-glitch" || { echo "PR author is not onlyraypotts-glitch"; exit 1; }
+      - name: Valid file
+        run: python3 release/verify_killswitch.py --validate-file release/killswitch.json
+      - name: Serial goes up by exactly 1
+        run: |
+          git fetch origin main --depth=1
+          old=$(git show origin/main:release/killswitch.json | python3 -c 'import json,sys;print(json.load(sys.stdin)["serial"])')
+          new=$(python3 -c 'import json;print(json.load(open("release/killswitch.json"))["serial"])')
+          test "$new" -eq $((old+1)) || { echo "serial must be $((old+1)), got $new"; exit 1; }
