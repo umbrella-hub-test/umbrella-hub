@@ -1,5 +1,5 @@
 {
-  "_comment": "Umbrella Hub kill switch. Change ONLY via release/kill.sh (PR, Ray merges). Bots honor it only from main of umbrella-hub-test/umbrella-hub when the last commit touching this file is authored by onlyraypotts-glitch and GitHub-verified. See release/KILLSWITCH.md.",
+  "_comment": "Umbrella Hub kill switch. Change ONLY via release/kill.sh (opens a PR; Ray merges). Bots honor it only from main of umbrella-hub-test/umbrella-hub when the last commit touching this file is authored by onlyraypotts-glitch and GitHub-Verified. See release/KILLSWITCH.md.",
   "schema_version": 1,
   "repo": "umbrella-hub-test/umbrella-hub",
   "serial": 1,
