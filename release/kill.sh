@@ -9,8 +9,8 @@
 #
 # What a real run does (only as onlyraypotts-glitch):
 #   1. reads release/killswitch.json on main, builds the next version (serial+1), validates it
-#   2. creates branch killswitch-<serial> and commits the file through the GitHub API
-#      (GitHub signs API commits, so the commit is "Verified" and authored by you)
+#   2. creates branch killswitch-<serial> and commits the file with GraphQL createCommitOnBranch
+#      (GitHub signs it, so the commit is "Verified" and authored by you)
 #   3. opens the PR and prints the merge command, the refund dry-run and the access-revocation plan
 # Bots only obey the switch after the PR is merged into main.
 set -euo pipefail
@@ -79,13 +79,20 @@ fi
 
 BR="killswitch-$SERIAL"
 MAIN_SHA="$(gh api "repos/$REPO/git/ref/heads/main" --jq .object.sha)"
-FILE_SHA="$(gh api "repos/$REPO/contents/$FILE?ref=main" --jq .sha)"
 gh api -X POST "repos/$REPO/git/refs" -f ref="refs/heads/$BR" -f sha="$MAIN_SHA" >/dev/null
-gh api -X PUT "repos/$REPO/contents/$FILE" -f message="Kill switch #$SERIAL: $STATE ($SCOPE) - $REASON" \
-  -f content="$(base64 -w0 "$TMP")" -f sha="$FILE_SHA" -f branch="$BR" >/dev/null
+# GraphQL createCommitOnBranch: GitHub signs it, so the commit shows as Verified and authored by you.
+# (A REST contents-API commit made with a user token is NOT verified; bots would ignore it.)
+python3 - "$REPO" "$BR" "$MAIN_SHA" "$TMP" "Kill switch #$SERIAL: $STATE ($SCOPE) - $REASON" "$FILE" <<'PY2' | gh api graphql --input - --jq '.data.createCommitOnBranch.commit.oid' >/dev/null
+import base64, json, sys
+repo, br, head, path, msg, file = sys.argv[1:7]
+print(json.dumps({"query": "mutation($i: CreateCommitOnBranchInput!){createCommitOnBranch(input:$i){commit{oid}}}",
+  "variables": {"i": {"branch": {"repositoryNameWithOwner": repo, "branchName": br}, "message": {"headline": msg[:250]},
+  "expectedHeadOid": head, "fileChanges": {"additions": [{"path": file, "contents": base64.b64encode(open(path, "rb").read()).decode()}]}}}}))
+PY2
 rm -f "$TMP"
 URL="$(gh pr create -R "$REPO" --base main --head "$BR" --title "KILL SWITCH #$SERIAL: $STATE ($SCOPE)" \
   --body "Changes only \`$FILE\`. Prepared by release/kill.sh. Bots obey it only after this is merged into main by @$OWNER. Not merged by the script.")"
 echo "PR opened (NOT merged): $URL"
-echo "To make it effective: gh pr merge $URL --squash --admin"
+echo "To make it effective: gh pr merge $URL --merge --admin"
+echo "Then confirm what bots will see: python3 release/verify_killswitch.py --check --bot-class paid --tier pro"
 echo "$FOLLOWUP"

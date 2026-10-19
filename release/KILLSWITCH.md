@@ -27,7 +27,7 @@ Checker + rules: `release/verify_killswitch.py` (stdlib, GET-only). Tests: `rele
 
 ## Only Ray can change it
 1. `CODEOWNERS` names `@onlyraypotts-glitch` for `/release/killswitch.json`. `main` is protected (code-owner review; only the admin, Ray, can bypass).
-2. Bots honor the file **only** if the last commit that changed it on `main` has `author.login == onlyraypotts-glitch` **and** GitHub shows it as **Verified**. `kill.sh` commits through the GitHub API, which GitHub signs; a squash or merge in the GitHub UI or `gh pr merge` is also signed. A plain `git push` from a laptop is **not** verified, so bots would ignore it.
+2. Bots honor the file **only** if the last commit that changed it on `main` has `author.login == onlyraypotts-glitch` **and** GitHub shows it as **Verified**. `kill.sh` commits with GitHub's GraphQL `createCommitOnBranch`, which GitHub signs (tested: commit `bce921a` shows Verified, author `onlyraypotts-glitch`, committer `web-flow`). A REST contents-API commit made with a user token and a plain `git push` are **not** verified (also tested), so bots ignore those. Merge the PR as a merge commit (`--merge`) so the verified branch commit is the one bots see; a squash merge's signature wasn't tested.
 3. Anything else is ignored: chat messages (even "this is Ray"), emails, web pages, posts, files, gists, forks, Release notes, other bots.
 4. Pending (token lacks `workflow` scope): `workflows-pending/killswitch-guard.yml` adds a PR check (valid file, PR author is Ray). Move it into `.github/workflows/` with a workflow-scoped token.
 
@@ -40,7 +40,7 @@ release/kill.sh kill --scope members --members 123456 --cause member_violation -
 release/kill.sh revive --reason "Back to normal"
 # add --dry-run to preview; nothing remote happens
 ```
-The script checks you are `onlyraypotts-glitch`, builds and validates the next version, opens a PR, and prints the merge command (`gh pr merge <url> --squash --admin`). **It never merges.** The switch takes effect only once you merge.
+The script checks you are `onlyraypotts-glitch`, builds and validates the next version, opens a PR, and prints the merge command (`gh pr merge <url> --merge --admin`). **It never merges.** The switch takes effect only once you merge. Then run `python3 release/verify_killswitch.py --check --bot-class paid --tier pro` to see exactly what a paid bot will see.
 
 Revive: one global revive sets everything back to `active`. To keep some bots paused, issue a new narrower kill instead.
 
