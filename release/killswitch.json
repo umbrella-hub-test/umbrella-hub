@@ -1,0 +1,15 @@
+{
+  "_comment": "Umbrella Hub kill switch. Change ONLY via release/kill.sh (PR, Ray merges). Bots honor it only from main of umbrella-hub-test/umbrella-hub when the last commit touching this file is authored by onlyraypotts-glitch and GitHub-verified. See release/KILLSWITCH.md.",
+  "schema_version": 1,
+  "repo": "umbrella-hub-test/umbrella-hub",
+  "serial": 1,
+  "state": "active",
+  "scope": "all",
+  "tiers": [],
+  "member_ids": [],
+  "cause": "none",
+  "tos_rule": null,
+  "reason": "Initial state: no kill in effect.",
+  "issued_at": "2026-10-19T03:46:00-04:00",
+  "issued_by": "onlyraypotts-glitch"
+}
